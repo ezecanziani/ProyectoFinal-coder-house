@@ -13,17 +13,17 @@ import com.coderhouse.models.Cliente;
 import com.coderhouse.models.Producto;
 import com.coderhouse.models.Venta;
 
-
-import ch.qos.logback.core.net.server.Client;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.coderhouse.excepciones.ResourceNotFoundException;
+import com.coderhouse.repositories.VentaRepository;
+
 @Service
-public class VentaService<VentaRepository> {
+public class VentaService {
     @Autowired
     private VentaRepository ventaRepository;
 
@@ -33,14 +33,11 @@ public class VentaService<VentaRepository> {
     @Autowired
     private ProductoService productoService;
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public Venta createVenta(VentaDTO ventaDTO) {
-    	Client cliente = clienteService.findById(ventaDTO.getClienteId())
-    	        .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
+        Cliente cliente = clienteService.findById(ventaDTO.getClienteId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado"));
 
         List<Producto> productos = new ArrayList<>();
         double total = 0;
