@@ -12,7 +12,7 @@ import com.coderhouse.excepciones.InsufficientStockException;
 import com.coderhouse.models.Cliente;
 import com.coderhouse.models.Producto;
 import com.coderhouse.models.Venta;
-import com.coderhouse.repositories.VentaRepository;
+
 
 import ch.qos.logback.core.net.server.Client;
 
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class VentaService {
+public class VentaService<VentaRepository> {
     @Autowired
     private VentaRepository ventaRepository;
 
@@ -76,7 +76,6 @@ public class VentaService {
             String currentDateTime = (String) response.getBody().get("currentDateTime");
             return LocalDateTime.parse(currentDateTime, DateTimeFormatter.ISO_DATE_TIME);
         } catch (Exception e) {
-      
             return LocalDateTime.now();
         }
     }
