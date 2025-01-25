@@ -3,7 +3,6 @@ package com.coderhouse.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import ch.qos.logback.core.net.server.Client;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,7 +37,7 @@ public class Venta {
         return cliente;
     }
 
-    public void setCliente(Client cliente2) {
+    public void setCliente(Cliente cliente2) {
         this.cliente = (Cliente) cliente2;
     }
 
